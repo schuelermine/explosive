@@ -1,5 +1,5 @@
-use std::iter;
 use std::io::Write;
+use std::iter;
 
 fn explosive<I: IntoIterator<Item = ()> + Clone + 'static>(iter: I) -> impl Iterator<Item = ()> {
     let mut res: Box<dyn Iterator<Item = ()>> = Box::new(iter::once(()));
