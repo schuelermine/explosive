@@ -1,0 +1,4 @@
+*.o
+*.hi
+rs/main
+hs/Main
