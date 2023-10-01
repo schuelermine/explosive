@@ -1,4 +1,5 @@
 use std::iter;
+use std::io::Write;
 
 fn explosive<I: IntoIterator<Item = ()> + Clone + 'static>(iter: I) -> impl Iterator<Item = ()> {
     let mut res: Box<dyn Iterator<Item = ()>> = Box::new(iter::once(()));
@@ -13,10 +14,11 @@ fn main() {
     let count: usize = std::env::args().skip(1).next().unwrap().parse().unwrap();
     print!("[");
     let mut iter = explosive(iter::repeat(()).take(count)).peekable();
+    let mut lock = std::io::stdout().lock();
     while let Some(()) = iter.next() {
-        print!("()");
+        write!(lock, "()").unwrap();
         if let Some(()) = iter.peek() {
-            print!(",");
+            write!(lock, ",").unwrap();
         }
     }
     println!("]");
