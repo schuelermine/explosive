@@ -10,5 +10,5 @@ explosive xs = replicateM_ (length xs) xs
 
 main :: IO ()
 main = do
-  [read -> count] <- getArgs
+  (read -> count) : _ <- getArgs
   print . explosive $ replicate count ()
