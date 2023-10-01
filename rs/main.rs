@@ -12,14 +12,14 @@ fn explosive<I: IntoIterator<Item = ()> + Clone + 'static>(iter: I) -> impl Iter
 
 fn main() {
     let count: usize = std::env::args().skip(1).next().unwrap().parse().unwrap();
-    print!("[");
-    let mut iter = explosive(iter::repeat(()).take(count)).peekable();
     let mut lock = std::io::stdout().lock();
+    write!(lock, "[").unwrap();
+    let mut iter = explosive(iter::repeat(()).take(count)).peekable();
     while let Some(()) = iter.next() {
         write!(lock, "()").unwrap();
         if let Some(()) = iter.peek() {
             write!(lock, ",").unwrap();
         }
     }
-    println!("]");
+    writeln!(lock, "]").unwrap();
 }
