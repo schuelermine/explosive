@@ -11,7 +11,7 @@ fn explosive<I: IntoIterator<Item = ()> + Clone + 'static>(iter: I) -> impl Iter
 }
 
 fn main() {
-    let count: usize = std::env::args().skip(1).next().unwrap().parse().unwrap();
+    let count: usize = std::env::args().nth(1).unwrap().parse().unwrap();
     let mut lock = std::io::stdout().lock();
     write!(lock, "[").unwrap();
     let mut iter = explosive(iter::repeat(()).take(count)).peekable();
